@@ -1,0 +1,43 @@
+SELECT 
+    idCliente,
+    QtdePontos
+FROM 
+    clientes
+ORDER BY qtdePontos DESC
+
+-- INTERVALOS
+
+-- -- De 0 a 500 -> ponei
+-- -- de 501 a 1000 -> ponei premium
+-- -- de 1001 a 5000 -> Mago Aprendiz
+-- -- de 5001 a 10000 -> Mago Mestre
+-- -- + 10000 -> Mago supremo
+
+
+SELECT 
+    idCliente,
+    QtdePontos,
+        CASE
+            WHEN  QtdePontos <= 500 THEN 'ponei'
+            WHEN QtdePontos >= 501 AND QtdePontos <= 1000 THEN 'ponei premium'
+            WHEN QtdePontos >=1001 AND QtDePontos <=5000 THEN 'mago aprendiz'
+            WHEN QtdePontos >=5001 AND QtDePontos <=10000 THEN 'mago aprendiz'
+            ELSE 'mago supremo'
+
+        END 
+            AS NomeGrupo,
+
+        CASE 
+            WHEN QtdePontos >= 501 AND QtdePontos <= 1000 THEN 1
+            ELSE 0
+        END AS poneipremium
+
+FROM clientes
+
+WHERE poneipremium = 1
+
+ORDER BY poneipremium DESC
+
+
+
+

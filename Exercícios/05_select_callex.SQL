@@ -75,3 +75,16 @@ FROM
 WHERE 
     DescCategoriaProduto = 'ponei';
 
+
+-- Listar todas as transações adicionando uma ocluna nova sinalizando "alto", "médio", e "baixo" para o valor dos pontos <10; <500; >= 500
+
+SELECT 
+    idCliente,
+    qtdePontos,
+        CASE
+            WHEN QtdePontos < 10 THEN 'BAIXO'
+            WHEN QtdePontos < 500 THEN 'MÉDIO'
+            WHEN qtdePontos >= 500 THEN 'ALTO'
+        END
+FROM clientes
+ORDER BY qtdePontos DESC
