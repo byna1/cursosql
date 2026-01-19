@@ -32,6 +32,14 @@ SELECT
 FROM clientes
 WHERE qtdePontos BETWEEN 100 AND 200; 
 
+-- fazendo com maior e igual
+
+SELECT
+    IdCliente, 
+    qtdePontos
+FROM clientes
+WHERE 100 >= qtdePontos AND qtdePontos <= 200; 
+
 -- lISTA DE PRODUTOS COM NOME QUE COMEÇA  COM "Venda de"
 SELECT 
     IdProduto,
@@ -46,4 +54,24 @@ SELECT
     DescNomeProduto
 FROM produtos
 WHERE DescNomeProduto LIKE '%Lover';
+
+-- PRODUTOS QUE SAO CHAPEU
+
+SELECT 
+    idproduto,
+    DescNomeProduto
+FROM produtos
+WHERE 
+    DescNomeProduto LIKE '%chapéu%';
+
+-- LISTA DE TRANSACOES COM O PRODUTO PONEI
+
+SELECT 
+    IdProduto,
+    DescNomeProduto,
+    DescCategoriaProduto
+FROM 
+    produtos
+WHERE 
+    DescCategoriaProduto = 'ponei';
 
