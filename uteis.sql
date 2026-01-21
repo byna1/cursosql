@@ -28,3 +28,18 @@ SELECT
 FROM transacao_produto
 GROUP BY IdProduto 
 ORDER BY totalProd DESC
+
+
+-- quantidade de transacoes por mês
+
+SELECT 
+    substr(t1.DtCriacao,1,7) AS mes,
+    COUNT (DISTINCT t2.IdTransacao)
+FROM transacoes AS t1
+LEFT JOIN transacao_produto AS t2
+ON t1.IdTransacao = t2.IdTransacao
+LEFT JOIN produtos AS t3
+ON t2.Idproduto = t2.IdProduto
+WHERE DescCategoriaProduto= 'present'
+GROUP BY mes
+ORDER BY COUNT (DISTINCT t2.IdTransacao) DESC

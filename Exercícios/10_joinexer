@@ -1,0 +1,42 @@
+--  qual a categoria tem mais produitos vendidos
+
+
+SELECT 
+    t2.DescCategoriaProduto,
+    COUNT(DISTINCT(t1.IdTransacao)) AS numeroTransacoes
+FROM transacao_produto AS t1
+LEFT JOIN produtos AS t2
+ON t1.IdProduto = t2.IdProduto
+GROUP BY t2.DescCategoriaProduto
+ORDER BY numeroTransacoes DESC
+
+-- Em 2024 quantas transacoes de lovers tivemos
+
+
+SELECT 
+    t3.DescCategoriaProduto,
+    count(distinct t1.IdTransacao)
+FROM transacoes AS t1
+LEFT JOIN transacao_produto AS t2
+ON t1.IdTransacao = t2.IdTransacao
+LEFT JOIN produtos AS t3
+ON t2.IdProduto = t3.IdProduto
+WHERE substr(DtCriacao,1,4) LIKE '2024'
+-- AND     t3.DescCategoriaProduto = 'lovers'
+GROUP BY 1
+ORDER BY count(distinct t1.IdTransacao)
+
+
+-- Qual mês tivemos mais lista de presença assinada
+
+SELECT 
+    substr(t1.DtCriacao,1,7) AS mes,
+    COUNT (DISTINCT t2.IdTransacao)
+FROM transacoes AS t1
+LEFT JOIN transacao_produto AS t2
+ON t1.IdTransacao = t2.IdTransacao
+LEFT JOIN produtos AS t3
+ON t2.Idproduto = t2.IdProduto
+WHERE DescNomeProduto = 'Lista de presença'
+GROUP BY mes
+ORDER BY COUNT (DISTINCT t2.IdTransacao) DESC
