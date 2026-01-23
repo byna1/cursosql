@@ -43,3 +43,17 @@ ON t2.Idproduto = t2.IdProduto
 WHERE DescCategoriaProduto= 'present'
 GROUP BY mes
 ORDER BY COUNT (DISTINCT t2.IdTransacao) DESC
+
+
+-- Clientes mais antigos tem mais frequencia de transação? Nesse daqui voce tem que usar o sheets pra visualizar
+
+SELECT t1.IdCliente,
+        t1.DtCriacao,
+        julianday ('now') - julianday(substr(t1.Dtcriacao,1,19))  AS idadeBase,
+        COUNT(t2.idtransacao)
+FROM clientes AS t1
+LEFT JOIN transacoes AS t2
+ON t1.IdCliente = t2.IdCliente
+GROUP BY t1.IdCliente,idadeBase
+
+
