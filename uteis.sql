@@ -57,3 +57,35 @@ ON t1.IdCliente = t2.IdCliente
 GROUP BY t1.IdCliente,idadeBase
 
 
+-- Quantidade de clientes que começou o curso e foi até o 5 dia
+
+SELECT 
+COUNT (DISTINCT(IdCliente))
+
+FROM transacoes AS t1 
+
+WHERE t1.IDCliente IN
+(
+SELECT DISTINCT IdCliente
+FROM transacoes
+WHERE substr(DtCriacao,1,10) = '2025-08-25'
+)
+AND substr(DtCriacao,1,10) = '2025-08-29'
+
+
+
+-- QUAL FOI A CURVA DE CHERN DO CURSO DE SQL
+
+SELECT 
+
+    DtCriacao,
+    substr(Dtcriacao,1,10) AS dtdia),
+    COUNT (DISTINCT IdCliente) AS qtdd_cliente
+
+FROM transacoes
+WHERE 
+substr(Dtcriacao,1,10) >= '2025-08-24'
+AND substr(Dtcriacao,1,10) <= '2025-08-29'
+GROUP BY dtDia
+
+
