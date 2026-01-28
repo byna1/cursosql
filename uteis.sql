@@ -86,6 +86,47 @@ FROM transacoes
 WHERE 
 substr(Dtcriacao,1,10) >= '2025-08-24'
 AND substr(Dtcriacao,1,10) <= '2025-08-29'
-GROUP BY dtDia
+
+-- 
+-- qual foi o dia com maior engajamento de cada aluno que entrou no dia 1
+
+
+WITH tb_contagem
+AS
+
+(
+
+SELECT
+    IdCliente as id_c,
+    substr(DtCriacao,1,10) AS data_transacao,
+    COUNT(IdTransacao) AS total_transacoes
+FROM transacoes
+WHERE substr(DtCriacao,1,10) >= '2025-08-24'
+AND substr (DtCriacao,1,10) <= '2025-08-28'
+GROUP BY data_transacao,id_c
+ORDER BY id_c
+),
+
+max_por_cliente
+
+AS 
+(
+SELECT
+        id_c,
+        MAX(total_transacoes) AS max_trans
+    FROM tb_contagem
+    GROUP BY id_c
+
+)
+
+SELECT 
+    t.id_c,
+    t.data_transacao,
+    t.total_transacoes
+FROM tb_contagem AS t
+INNER JOIN max_por_cliente AS  m 
+ON t.id_c = m.id_c 
+AND t.total_transacoes = m.max_trans
+ORDER BY t.id_c;
 
 
