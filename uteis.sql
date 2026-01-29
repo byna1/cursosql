@@ -130,3 +130,26 @@ AND t.total_transacoes = m.max_trans
 ORDER BY t.id_c;
 
 
+-- saldo de pontos acumulado de cada usuario
+
+
+WITH
+
+tb_transac_cliente
+
+AS
+
+(
+SELECT
+    IdCliente,
+    SUBSTR(DtCriacao,1,10) AS DtDia,
+    SUM(QtdePontos) as totalPontos
+FROM transacoes
+GROUP BY IdCliente, dtDia
+ORDER BY IdCliente,dTdIa
+)
+
+SELECT *,
+    sum (totalPontos) OVER (PARTITION BY idCliente ORDER BY DtDia) AS saldoPontos
+
+FROM tb_transac_cliente

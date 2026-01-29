@@ -108,5 +108,5 @@ FROM cliente_dia
 
 SELECT *,
 JULIANDAY(dtDia) - JULIANDAY(lag_dia)
-FROM tb_lag
---
+FROM tb_lag;
+
